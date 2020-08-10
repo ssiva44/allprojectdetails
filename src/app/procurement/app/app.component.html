@@ -1,0 +1,36 @@
+<!-- Begin Project List -->
+
+<div class="row full-row-white-components">
+  <div class="container"> 
+     <div class="row">
+        <!-- Begin Project List table -->
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <!-- Begin Project Listing -->
+    <div class="row">
+       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <section>
+         <tabset> 
+          <projects-tab title="{{noticesLabel}}">
+            <table-api [imagePath]="imagePath" [domain]="domain" [projectId]="projectId" [tableHeaders]= "noticesTableHeaders" [locale]="locale" [apiUrl]="noticesApiUrl" [inputApiUrl]="noticesApiUrl" [loadMoreLabel]="loadMoreLabel" [errorMsg]="noticesErrorMessage" tabType="notices" [downloadLabel]="downloadLabel"> Loading...</table-api>
+          </projects-tab>
+          <projects-tab title="{{contractsLabel}}">
+            <table-api [imagePath]="imagePath" [domain]="domain" [projectId]="projectId" [tableHeaders]= "contractsTableHeaders" [locale]="locale" [apiUrl]="contractsApiUrl" [inputApiUrl]="contractsApiUrl" [loadMoreLabel]="loadMoreLabel" [errorMsg]="contractErrorMessage" tabType="contract" [downloadLabel]="downloadLabel"> Loading...</table-api>
+          </projects-tab>
+          <projects-tab title="{{plansLabel}}">
+            <table-api [imagePath]="imagePath" [domain]="domain" [projectId]="projectId" [tableHeaders]= "planTableHeaders" [locale]="locale" [apiUrl]="planApiUrl" [inputApiUrl]="planApiUrl" [loadMoreLabel]="loadMoreLabel" [errorMsg]="planErrorMessage" tabType="plan" [downloadLabel]="downloadLabel"> Loading...</table-api>
+          </projects-tab>
+         </tabset>
+        </section>
+       </div>
+    </div>
+    <!-- End Project Listing -->
+     <!-- Begin Caption -->
+                
+           <!-- End Caption -->
+        </div>
+        <!-- Begin Project List table -->
+     </div>
+  </div>
+</div>
+
+<!-- End Project List -->

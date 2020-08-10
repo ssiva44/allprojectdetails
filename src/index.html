@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Allprojects</title>
+  <base href="/">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link rel="stylesheet" href="https://aemstg.worldbank.org/etc/designs/wbrrdesign/clientlibs-projects/css/style-min.css">
+   
+  <link rel="stylesheet" href="http://cq.extcc.com/projects-operations/english/css/style-min.css">
+  <link rel="stylesheet" href="http://cq.extcc.com/projects-operations/english/css/cq-extcc-min.css">
+  
+</head>
+<body>
+  <allprojects 
+  summary-locale="en"
+  summary-project-api="http://search.worldbank.org/api/v2/projects?format=json&rows=6" 
+  summary-procurement-api="http://search.worldbank.org/api/v2/procnotices?format=json" 
+  summary-lending-api="https://apigwqaext.worldbank.org/dvsvcqa/v1.0/json/APPLICATION/PROJECT/PROJECT_EXTERNAL/PROJECT_YEAR" 
+  summary-apikey="FY2p6pvR4pdAJ6zhv2tiDFKaMXXfkrFD" 
+  summary-projects-path="http://wb-stage62.adobecqms.net/en/projects-operations/project-detail/" 
+  summary-procurements-path="http://wb-stage62.adobecqms.net/en/projects-operations/notices/" 
+  summary-procurement-search-path="http://wb-stage62.adobecqms.net/en/projects-operations/procurement" 
+  summary-project-list-path="https://aemprojects.worldbank.org/en/projects-operations/projects-list"
+
+  procurement-imagePath="./lol.gif" 
+  procurement-domain="http://wb-stage62.adobecqms.net/" 
+  procurement-locale="en" 
+  procurement-projectId="P083377" 
+  procurement-noticesApiUrl="//searchqa.worldbank.org/api/v2/procnotices?format=json&fl=*&srt=submission_date%20desc,id%20asc&apilang=en&project_id=P083377" 
+  procurement-contractsApiUrl="//search.worldbank.org/api/contractdata?format=json&fct=regionname_exact,countryshortname_exact,procu_meth_text_exact,procu_type_text_exact,procurement_group_desc_exact,supplier_countryshortname_exact,mjsecname_exact,sector_exact&fl=id,projectid,project_name,contr_id,contr_desc,countryshortname,total_contr_amnt,procu_meth_text,procurement_group,contr_sgn_date,countryshortname_exact,supplier_contr_amount&fl=*&os=&qterm=&srt=contr_sgn_date%20desc,id%20asc&projectid=P083377" 
+  procurement-planApiUrl="//search.worldbank.org/api/v2/wds?format=json&fl=docna,docty,repnb,docdt,doc_authr,available_in&docty=Procurement+Plan&os=0&proid=P083377&apilang="
+
+  document-imagePath="./lol.gif" 
+  document-locale="en" 
+  document-projectsApiUrl="//search.worldbank.org/api/v2/wds?format=json&includepublicdocs=1&fl=docna,lang,docty,repnb,docdt,doc_authr,available_in&os=0&apilang=en&proid=P000755" 
+  document-archivalApiUrl="//search.worldbank.org/api/v2/projectsarchives?format=json&srt=start_date&order=desc&apilang=en&project_id_exact=P000755" 
+  document-projectid="P000755" 
+  document-type="archival"
+
+  newsmedia-imagePath="https://aemprojects.worldbank.org/content/dam/wbr-redesign/logos/ajax.gif" 
+  newsmedia-news-media-api="//search.worldbank.org/api/v2/news?format=json&fct=displayconttype_exact&fl=descr,display_title,lang,url,lnchdt,proid,displayconttype&src=cq55"
+  newsmedia-multimedia-api="//search.worldbank.org/api/v2/multimedia?format=json&fl=*" 
+  newsmedia-projectCode="P120397" 
+  newsmedia-languageCode="en"
+
+  photo-imagePath="" 
+  photo-peopleImage="https://wbwcfe.worldbank.org/photoarchive/api/archives/image?id={id}&f=thumbnail"
+  photo-projects-photo-gallery-api="https://search.worldbank.org/api/v2/photoarchives?format=json&fl=*&wbg_eligible_for_public_release=Yes&for_public_download=Yes&rows=15&srt=cataloged&order=desc" 
+  photo-projectCode="P007403" 
+  photo-languageCode="en" 
+  photo-details-path="https://archivesphotos.worldbank.org/en/about/archives/photo-gallery/photo-gallery-details" 
+  photo-viewall-label="View All Photos"
+  photo-viewall-link="https://aem-archivesphotos.worldbank.org/en/about/archives/photo-gallery/photo-gallery-landing"
+  ></allprojects>
+</body>
+</html>
