@@ -78,7 +78,7 @@ export class ExcelService {
   
   for (let i = 0; i < titleLinks.length; i++) {            
     worksheet['A' + (2 + i)].l = { Target: titleLinks[i] };
-    worksheet['A' + (2 + i)].s = { color: "blue" };
+    worksheet['A' + (2 + i)].s = { color: "red" };
 }  
 
 	const workbook: XLSX.WorkBook = { Sheets: { 'Project Documents': worksheet }, SheetNames: ['Project Documents'] };

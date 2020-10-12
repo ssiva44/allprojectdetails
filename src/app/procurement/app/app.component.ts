@@ -1,9 +1,18 @@
 import { Component, OnInit,ElementRef } from '@angular/core';
 import {CommonService} from '../../common.service';
+import { trigger, state, style, animate, transition } from '@angular/animations';
 @Component({
   selector: 'procurementApp',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  animations: [    	
+		trigger('footNoteFadeInOut', [
+			state('false', style({ height: "0px", display: "none" })),
+			state('true', style({ height: "*", display: "block" })),
+		  transition('inactive => active', animate('100ms ease-in')),
+      transition('active => inactive', animate('100ms ease-out'))			
+		])
+	] 
 })
 export class AppComponent implements OnInit {
 
@@ -49,8 +58,10 @@ export class AppComponent implements OnInit {
 
  	 disclaimerText: string;	 
 	 disclaimerTextGroup: any = {}; 
-	 footNoteAnimation: boolean = false;	 
-	 
+	 footNoteAnimation: boolean = false;
+	 isTab1:boolean=true;	 
+	 isTab2:boolean=false;
+	 isTab3:boolean=false;
 	 constructor(private element: ElementRef,private commonservice:CommonService){
     commonservice.changeClosingallStatus.subscribe((val:any) => {
       
@@ -214,7 +225,26 @@ export class AppComponent implements OnInit {
    } 
 
   ngOnInit() {
-    
+    this.isTab1=true;
+	this.isTab2=false;
+	this.isTab3=false;
   }
-
+  tab(istab,event){
+	 
+    $(".nav li a").removeClass('menu-active');
+    event.target.classList.add('menu-active');
+	this.isTab1=false;
+	this.isTab2=false;
+	this.isTab3=false;
+	if(istab=="1"){
+		this.isTab1=true;
+	}else if(istab=="2"){
+		this.isTab2=true;
+	}else if(istab=="3"){
+		this.isTab3=true;
+	}
+  }
+  onFootNotes(footNoteAnimation) {
+    this.footNoteAnimation = footNoteAnimation;
+}
 }

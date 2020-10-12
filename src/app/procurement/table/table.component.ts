@@ -31,15 +31,17 @@ export class TableComponent implements OnInit {
 	 // for excel download
 	 excelJsonArrayResponse: any[];
 	 excelUrlResponse: any[];
-	 dtOptions: any = {};	 
+	  isUpArrow : any[];
+	 dtOptions: any = {};	
+	 sortDir = 1; 
 	 dtTrigger: Subject<any> = new Subject();
 
 	 contractTableHeadersExcelGroup: any = {}; 
 	 contractTableHeadersExcel: string;
 	 contractExcelTableHeaders: any; 
-	
+	 order: string = '';
 
-	 
+	 reverse: boolean=false;
 	constructor(private element: ElementRef,private excelService: ExcelService,private http:HttpClient){
 	this.excelService = excelService;
 	}  
@@ -55,13 +57,14 @@ export class TableComponent implements OnInit {
 		
 		
 		this.callAPI(rowsCount,'on-init');	
+	
 		this.dtOptions = {
 			dom: 'Brt',
 			order: []					
 		}
   }
   ngOnChanges() {
-    debugger
+    
     this.contractTableHeadersExcelGroup = { 
 			'en' : 'Contract No%%Description%%Procurement Method%%Procurement Group%%Borrower Contract Reference%%Contractor Name%%Contractor Country%%No Objection Date%%Contract Signing Date%%Amount (US$)',
 			'es' : 'N.° de contrato%%Descripción%%Método de adquisiciones%%Grupo de adquisiciones%%Referencia del contrato del prestatario%%Nombre del contratista%%País del contratista%%Fecha de no oposición de objeciones%%Fecha de firma del contrato%%Monto (US$)',
@@ -74,7 +77,7 @@ export class TableComponent implements OnInit {
 		
 		this.contractTableHeadersExcel=this.contractTableHeadersExcelGroup.hasOwnProperty(this.locale) ? this.contractTableHeadersExcelGroup[this.locale] : {}
  
-		
+		this.urlResponse=[];
   }
 
   callAPI(rowsCount,checkVal){	
@@ -86,16 +89,26 @@ export class TableComponent implements OnInit {
 		let planTabResponse = [];
 	
 		let totalRecords = '0';	
+		if(this.tabType=='notices'){
+		this.apiUrl=this.inputApiUrl+'&rows='+rowsCount+'&project_id=' + this.projectId+'&apilang='+ this.locale;
+		}
+		if(this.tabType=='contract'){
+			this.apiUrl=this.inputApiUrl+'&rows='+rowsCount+'&projectid=' + this.projectId+'&apilang='+ this.locale;
+		}
+		if(this.tabType=='plan'){
+			this.apiUrl=this.inputApiUrl+'&rows='+rowsCount+'&proid=' + this.projectId+'&apilang='+ this.locale;
+		}
 		
-		this.apiUrl=this.inputApiUrl+'&rows='+rowsCount;
 		this.rowsCount=rowsCount;
 					
 		this.http.get(this.apiUrl).subscribe((response:any)=> {	
+			
+			this.loader =false;	
 		totalRecords=response.total;
 		this.totalRecords = totalRecords;
 		
 		if(this.totalRecords==='0'){ 
-			this.loader =false;		
+				
 		}
 
 		if(this.totalRecords>'0'){  
@@ -153,7 +166,7 @@ export class TableComponent implements OnInit {
 		let excelJsonArrayResponse=[];
 		let excelJsonArrayElements= {};	 		
 
-		this.http.get(this.inputApiUrl+'&rows=500').subscribe((response:any)=> {	
+		this.http.get(this.inputApiUrl+'&rows=500'+'&project_id=' + this.projectId+'&apilang='+ this.locale).subscribe((response:any)=> {	
 			if(response.total>0){
 			excelUrlResponse.push(response);
 			this.excelUrlResponse = excelUrlResponse;
@@ -229,5 +242,51 @@ export class TableComponent implements OnInit {
 		});
 		
 	}
+	public onSort(tableHeaderValue) {
+	
+		this.order=tableHeaderValue;
+		this.reverse=!this.reverse
+	}
+	
 
+	public onScrollToTop() {
+		window.scrollTo(0, 0);		
+	  }
+
+	  sortArr(colName:any){
+		this.urlResponse.sort((a,b)=>{
+		  a= a[colName].toLowerCase();
+		  b= b[colName].toLowerCase();
+		  return a.localeCompare(b) * this.sortDir;
+		});
+	  }
+
+	  onSortClick(event, index,col) {
+		let target = event.srcElement,
+		  classList = target.innerHTML;
+         if(classList!=""){
+		if (classList.indexOf('fa-chevron-up')>-1) {
+		  
+		  target.innerHTML = (target.tagName!='SPAN') ? 
+		  this.tableHeaders[index] + ' <span class="fa fa-chevron-down arrow_up" ></span>' : 
+		  '<span class="fa fa-chevron-down arrow_up" ></span>';
+		  this.sortDir=-1;
+		} else {
+		 target.innerHTML = (target.tagName!='SPAN') ? 
+		 this.tableHeaders[index] + ' <span class="fa fa-chevron-up arrow_up" ></span>' : 
+		 '<span class="fa fa-chevron-up arrow_up" ></span>';
+		  this.sortDir=1;
+		}
+	}else{
+		if (target.className.indexOf('fa-chevron-up')>-1) {
+			target.className="fa fa-chevron-down arrow_up";
+			this.sortDir=-1;
+		  } else {
+			target.className="fa fa-chevron-up arrow_up";
+			this.sortDir=1;
+		  }
+	}
+		
+		this.sortArr(col);
+	  }
 }

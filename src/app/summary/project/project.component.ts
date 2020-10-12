@@ -46,7 +46,7 @@ export class ProjectComponent implements OnInit,OnChanges {
   }
   }
   ngOnInit() {
-    debugger
+    
    
   }
 

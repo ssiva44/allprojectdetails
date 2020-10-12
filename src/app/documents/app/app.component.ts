@@ -1,5 +1,6 @@
 import { Component, OnInit,ElementRef } from '@angular/core';
 import {CommonService} from '../../common.service';
+import {Router,ActivatedRoute } from '@angular/router'
 @Component({
   selector: 'documentsTab',
   templateUrl: './app.component.html',
@@ -8,7 +9,7 @@ import {CommonService} from '../../common.service';
 export class AppComponent implements OnInit {
 
   imagePath: string;
-	 
+  ishide:boolean=false;
 	 projectsTableHeaders:any;
 	 archivalTableHeaders: any;
 	 
@@ -38,8 +39,12 @@ export class AppComponent implements OnInit {
  	 downloadLabel: string;	 
 	 downloadLabelGroup: any = {};
 	 projectid: string; 
-	tabType:string;
-	 constructor(private element: ElementRef,private commonservice:CommonService){
+  tabType:string;
+  document_routing:string;
+  archive:boolean=true;
+  projects:boolean=false;
+   constructor(private element: ElementRef,private commonservice:CommonService,
+    private route:Router,private activatedRoute:ActivatedRoute){
     commonservice.changeClosingallStatus.subscribe((val:any) => {
       
       if (val) {
@@ -50,6 +55,7 @@ export class AppComponent implements OnInit {
         this.archivalApiUrl=val.document_archivalApiUrl;
         this.projectid=val.document_projectid;
         this.tabType=val.document_tabType;
+        this.document_routing=val.document_routing;
         this.projectsTableHeadersGroup = { 
           'en' : 'DOCUMENT TITLE%%DATE%%REPORT NO.%%DOCUMENT TYPE',
           'es' : 'TÍTULO DEL DOCUMENTO%%FECHA%%INFORME NO.%%TIPO DE DOCUMENTO',
@@ -146,6 +152,40 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.archive=false;
+    this.projects=true;
+  
+    if(window.location.search!=""){
+      let split:any=[];
+       split=window.location.search.split('type=');
+       
+      if(split.length>1){
+       let tab = split[1];
+       this.tab("",tab);
+      }
+    }else{
+      this.route.navigate([this.document_routing], { queryParams: { type: 'projects'  }});
+    }
   }
-
+  tab(event,txt){
+    
+    $(".nav li a").removeClass('menu-active');
+    if(event!=""){
+      event.target.classList.add('menu-active');
+    }else{
+      $('#'+txt).addClass('menu-active');
+    }
+    
+    this.archive=false;
+    this.projects=false;
+    if(txt=="archival"){
+      this.archive=true;
+    }
+    if(txt=="projects"){
+      this.projects=true;
+    }
+    
+    this.route.navigate([this.document_routing], { queryParams: { type: txt  }});
+   
+  }
 }

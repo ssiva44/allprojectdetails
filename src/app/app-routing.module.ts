@@ -1,32 +1,38 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-
+import {APP_BASE_HREF} from '@angular/common';
 import{SummaryModule} from './summary/summary.module';
 import{ProcurementModule} from './procurement/procurement.module';
 import{DocumentsModule} from './documents/documents.module';
 import{NewsmediaModule} from './newsmedia/newsmedia.module';
 import{PhotogalleryModule} from './photogallery/photogallery.module';
+
+import {CommonService} from './common.service';
+
 const routes: Routes = [
 {
-  path:'project-detail',loadChildren:() => SummaryModule
+  path:'',loadChildren: './summary/summary.module#SummaryModule'
 },
 {
-  path:'project-procurement',loadChildren:() => ProcurementModule
+  path:'',loadChildren: './procurement/procurement.module#ProcurementModule'
 },
 {
-  path:'document-detail',loadChildren:() => DocumentsModule
+  path:'',loadChildren: './documents/documents.module#DocumentsModule'
 },
 {
-  path:'news-media',loadChildren:() => NewsmediaModule
+  path:'',loadChildren: './newsmedia/newsmedia.module#NewsmediaModule'
 },{
-  path:'photo-gallery',loadChildren:() => PhotogalleryModule
-},
-{
-   path: '', redirectTo: 'project-detail', pathMatch: 'full'
+  path:'',loadChildren: './photogallery/photogallery.module#PhotogalleryModule'
+},{
+  path: '', redirectTo: '', pathMatch: 'full'
 }];
-
+   
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [{provide: APP_BASE_HREF, useValue : '/' },CommonService]
 })
-export class AppRoutingModule { }
+
+export class AppRoutingModule { 
+  
+}

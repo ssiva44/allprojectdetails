@@ -24,22 +24,33 @@
 		  </div>
 		  <div class="projects_procurement">
 		  <div class="c14v1-body c14v1-body-text project-opt-table responsive-table">
-			 <div class="paragraph table nosort">
+			 <div class="paragraph table nosort" >
 			 
   
 			 
 				 <!--for Procurement-Notices starts Here-->
   
-				<table datatable data-page-length='20' [dtTrigger]="dtTrigger" [dtOptions]="dtOptions" class="row-border hover project-operation-tab-table" *ngIf="tabType=='notices'" [class.hideTable]="totalRecords == 0">
+				<table    class="row-border hover project-operation-tab-table" 
+				*ngIf="tabType=='notices'" [class.hideTable]="totalRecords == 0">
 					  <thead>
 						<tr>				 
-							  <th *ngFor="let tableHeaderValue of tableHeaders">
-							  {{tableHeaderValue}}
-							  </th>								
+							  <th (click)="onSortClick($event, 0,'bid_description');">
+							  {{tableHeaders[0]}} 
+							  <span  class="fa fa-chevron-up arrow_up"></span>
+							  </th>	
+							  <th (click)="onSortClick($event, 1,'bid_description');">
+								{{tableHeaders[1]}}  <span class="fa fa-chevron-up arrow_up" ></span>
+								</th>	
+								<th (click)="onSortClick($event, 2,'bid_description');">
+									{{tableHeaders[2]}}  <span class="fa fa-chevron-up arrow_up" ></span>
+									</th>	
+							<th (click)="onSortClick($event, 3,'bid_description');">
+								{{tableHeaders[3]}}  <span class="fa fa-chevron-up arrow_up" ></span>
+								</th>								
 						  </tr>	
 					  </thead>
 					  <tbody>
-						  <tr *ngFor="let noticesObject of urlResponse"> 
+						  <tr *ngFor="let noticesObject of urlResponse  "> 
 								  <td data-th>
 									  <a href="{{domain}}{{locale}}/projects-operations/procurement-detail/{{noticesObject.id}}">{{( noticesObject.bid_description === undefined || noticesObject.bid_description === '' )? noticesObject.notice_type : noticesObject.bid_description}}</a>
 								  </td>
@@ -55,16 +66,30 @@
 			 
 				 <!--for Procurement-Contract starts Here-->
   
-				<table datatable data-page-length='20' [dtTrigger]="dtTrigger" [dtOptions]="dtOptions" class="row-border hover project-operation-tab-table" *ngIf="tabType=='contract'" [class.hideTable]="totalRecords == 0">
+				<table class="row-border hover project-operation-tab-table"
+				 *ngIf="tabType=='contract'" [class.hideTable]="totalRecords == 0">
 					  <thead>
 						  <tr style="display: table-row;">					 
-							  <th *ngFor="let tableHeaderValue of tableHeaders">
-							  {{tableHeaderValue}}
-							  </th>                       
+							<th (click)="onSortClick($event, 0,'contr_desc');">
+								{{tableHeaders[0]}} 
+								<span  class="fa fa-chevron-up arrow_up"></span>
+								</th>	
+								<th (click)="onSortClick($event, 1,'contr_desc');">
+								  {{tableHeaders[1]}}  <span class="fa fa-chevron-up arrow_up" ></span>
+								  </th>	
+								  <th (click)="onSortClick($event, 2,'contr_desc');">
+									  {{tableHeaders[2]}}  <span class="fa fa-chevron-up arrow_up" ></span>
+									  </th>	
+							  <th (click)="onSortClick($event, 3,'contr_desc');">
+								  {{tableHeaders[3]}}  <span class="fa fa-chevron-up arrow_up" ></span>
+								  </th>  
+								  <th (click)="onSortClick($event, 4,'contr_desc');">
+									{{tableHeaders[4]}}  <span class="fa fa-chevron-up arrow_up" ></span>
+									</th>                    
 						  </tr>	
 					  </thead>
 					  <tbody>
-						  <tr *ngFor="let contractObject of urlResponse"> 
+						  <tr *ngFor="let contractObject of urlResponse " > 
 							  <td data-th><a href="{{domain}}{{locale}}/projects-operations/contractoverview/{{contractObject.contr_id}}">{{contractObject.contr_desc | titlecase}}</a></td>
 							  <td [attr.data-th]="tableHeaders[1]+':'">{{contractObject.procu_meth_text}}</td>
 							  <td [attr.data-th]="tableHeaders[2]+':'">{{contractObject.procurement_group}}</td>
@@ -78,12 +103,24 @@
 				  
 				  <!--for Procurement-plan starts Here-->
   
-				<table datatable data-page-length='20' [dtTrigger]="dtTrigger" [dtOptions]="dtOptions" class="row-border hover project-operation-tab-table" *ngIf="tabType=='plan'" [class.hideTable]="totalRecords == 0">
+				<table  
+				class="row-border hover project-operation-tab-table" *ngIf="tabType=='plan'" [class.hideTable]="totalRecords == 0">
 					  <thead>
 						  <tr style="display: table-row;">					 
-							  <th *ngFor="let tableHeaderValue of tableHeaders">
-							  {{tableHeaderValue}}
-							  </th>                       
+							<th (click)="onSortClick($event, 0,'display_title');">
+								{{tableHeaders[0]}} 
+								<span  class="fa fa-chevron-up arrow_up"></span>
+								</th>	
+								<th (click)="onSortClick($event, 1,'display_title');">
+								  {{tableHeaders[1]}}  <span class="fa fa-chevron-up arrow_up" ></span>
+								  </th>	
+								  <th (click)="onSortClick($event, 2,'display_title');">
+									  {{tableHeaders[2]}}  <span class="fa fa-chevron-up arrow_up" ></span>
+									  </th>	
+							  <th (click)="onSortClick($event, 3,'display_title');">
+								  {{tableHeaders[3]}}  <span class="fa fa-chevron-up arrow_up" ></span>
+								  </th>  
+								                        
 						  </tr>	
 					  </thead>
 					  <tbody>
@@ -116,7 +153,7 @@
 				  </div>
 				  
 				  <div class="totop"> 
-				  <a  id="totop" style="display: block;">Back to top</a> 
+				  <a  id="totop" style="display: block;" (click)="onScrollToTop(); false">Back to top</a> 
 				  </div>
 			  </div>
 		  </div> 

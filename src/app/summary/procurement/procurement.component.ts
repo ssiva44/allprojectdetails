@@ -20,7 +20,7 @@ export class ProcurementComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    debugger
+    
    
   }
   ngOnChanges(){

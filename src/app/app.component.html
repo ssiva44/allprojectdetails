@@ -1,23 +1,87 @@
-<!--The content below is only a placeholder and can be replaced.-->
 
-<br>
-<br>
-<div class="container">
-  <nav class="loop-tabs _loop_page_nav" id="wrap">
-      <!-- Begin Dropdown-v2 components -->
-       <ul class="primary-tabs _loop_page_nav_list" id="dropdown-tab">
-          <li class="_loop_nav_list_item"><a routerLink="/project-detail" routerLinkActive="active"  >Summary</a></li> 
-          <li class="_loop_nav_list_item"><a routerLink="/project-procurement" routerLinkActive="active">Procurement</a></li> 
-          <li class="_loop_nav_list_item"><a routerLink="/document-detail" routerLinkActive="active">Documents</a></li> 
-          <li class="_loop_nav_list_item"><a routerLink="/news-media" routerLinkActive="active">News and media</a></li> 
-          <li class="_loop_nav_list_item"><a routerLink="/photo-gallery" routerLinkActive="active">Photo Gallery</a></li> 
-      </ul>
-      
-      
-      
-  </nav></div>
-  <div class="row full-row-white-components" style="padding:32px 0px 32px 0px;">
-    <div class="container">
-    <router-outlet></router-outlet>
+
+<div class="par parsys"><div class="supergrid parbase section">
+    
+  <div class="row clearfix full-row-white-components" style="padding: 64px 0px 64px 0px; background-color:#0071bc">
+      <div class="container">
+            <div class="">
+    <div class="par parsys"><div class="project_title section">
+          <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <h1 id="projects-title" style="color:#fff;">{{project_name}}</h1>
+            </div>
+          </div>
     </div>
+
+</div>
+
+          </div>
+      </div>     
   </div>
+  
+
+
+
+<div class="projects_tab parbase section">
+<div class="">
+  <div class="container">
+    <nav class="loop-tabs _loop_page_nav " id="wrap">
+        <!-- Begin Dropdown-v2 components -->
+         <ul class="primary-tabs _loop_page_nav_list" id="dropdown-tab">
+      <li class="_loop_nav_list_item"><a  routerLink="{{summary_routing}}" id="summary_top" routerLinkActive="active"  >{{summary}}</a></li> 
+            <li class="_loop_nav_list_item"><a routerLink="{{procurement_routing}}" id="procurement_top" routerLinkActive="active">{{procurement}}</a></li> 
+            <li class="_loop_nav_list_item"><a  routerLink="{{document_routing}}" id="documents_top" routerLinkActive="active">{{documents}}</a></li> 
+            <li class="_loop_nav_list_item"><a  routerLink="{{newsmedia_routing}}" id="news_top" routerLinkActive="active">{{news}}</a></li> 
+            <li class="_loop_nav_list_item" *ngIf="summary_locale=='en'"><a  routerLink="{{photogallery_routing}}" id="photo_top" routerLinkActive="active">{{photo}}</a></li> 
+        </ul>
+        
+    </nav>
+
+    <!-- <nav class="loop-tabs _loop_page_nav hidden-sm hidden-md hidden-lg">
+    
+       <ul class="primary-tabs _loop_page_nav_list " id="dropdown-tab">
+    <li class="_loop_nav_list_item"><a  routerLink="{{summary_routing}}" id="summary_top" routerLinkActive="active"  >{{summary}}</a></li> 
+          <li class="_loop_nav_list_item"><a routerLink="{{procurement_routing}}" id="procurement_top" routerLinkActive="active">{{procurement}}</a></li> 
+          <li class="_loop_nav_list_item"><a  routerLink="{{document_routing}}" id="documents_top" routerLinkActive="active">{{documents}}</a></li> 
+         
+          <div class="dropdown">
+            <button class="dropbtn"> 
+              <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-content">
+              <li class="_loop_nav_list_item"><a  routerLink="{{newsmedia_routing}}" id="news_top" routerLinkActive="active">{{news}}</a></li> 
+              <li class="_loop_nav_list_item" *ngIf="summary_locale=='en'"><a  routerLink="{{photogallery_routing}}" id="photo_top" routerLinkActive="active">{{photo}}</a></li> 
+            
+            </div>
+          </div> 
+        </ul>
+      
+  </nav> -->
+
+ 
+       <!-- <div class="row full-row-white-components" style="padding:0px">
+      <div class="container"> -->
+      <router-outlet></router-outlet>
+      <!-- </div>
+    </div> -->
+    <html><head><META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8"><meta name="Robots" content="NOINDEX " /></head><body></body>
+                  <script type="text/javascript">
+                   var gearPage = document.getElementById('GearPage');
+                   if(null != gearPage)
+                   {
+                       gearPage.parentNode.removeChild(gearPage);
+                       document.title = "Error";
+                   }
+                   </script>
+                   </html>
+  
+                  </div>
+                </div>
+ 
+</div>
+
+
+
+
+
+

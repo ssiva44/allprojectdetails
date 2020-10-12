@@ -14,6 +14,7 @@ import { SanitizeHtmlPipe } from '../pipes/sanitize-html.pipe';
 import { ExcelService } from '../services/excel.service';
 import { DataTablesModule } from 'angular-datatables';
 import { ToCurrencyPipe } from '../pipes/to-currency.pipe';
+import { OrderModule } from 'ngx-order-pipe';
 const routes:Routes=[
   {
     path:'',component:AppComponent
@@ -23,7 +24,7 @@ const routes:Routes=[
   declarations: [AppComponent,DateFormatPipe,TableComponent,Tab,Tabset
     ,ObjectFilterPipe,ReplaceStringPipe,SanitizeHtmlPipe,ToCurrencyPipe],
   imports: [
-    CommonModule,DataTablesModule,RouterModule.forChild(routes),HttpClientModule
+    CommonModule,DataTablesModule,RouterModule.forChild(routes),HttpClientModule,OrderModule
   ],
   exports: [RouterModule],
   providers: [ExcelService],

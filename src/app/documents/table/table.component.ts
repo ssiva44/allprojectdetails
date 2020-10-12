@@ -38,7 +38,7 @@ export class TableComponent implements OnInit {
   // for excel download
   excelJsonArrayResponse: any[];
   excelUrlResponse: any[];
-
+  reverse: boolean=false;
   //added for sort
   sortedColumns: any[] = [];
   projectHeadersProperties:any[]=[];
@@ -48,7 +48,7 @@ export class TableComponent implements OnInit {
   sortArchieveType:string = 'asc';
   projectHeaders: any[] = [];
  
-  
+  sortDir = 1; 
  constructor(private element: ElementRef, private excelService: ExcelService,private http:HttpClient){
  this.excelService = excelService;
  }  
@@ -58,7 +58,7 @@ export class TableComponent implements OnInit {
 		
   let tableHeaders = [];
   let rowsCount = '20';		
-  debugger
+  
   tableHeaders=this.tableHeaders.split("%%");
   this.tableHeaders = tableHeaders;
   this.callAPI(rowsCount,'on-init','');	
@@ -90,7 +90,7 @@ this.projectHeadersProperties=["display_title","docdt","repnb","docty"];
 this.archiveHeadersProperties=["folder_title","id","start_date","disclosure_status"];
   }
   onArchiveSort(property, sortType){
-    
+    this.reverse=!this.reverse;
     if (this.sortedArchieveColumns.indexOf(property) === -1) {
       this.sortedArchieveColumns.push(property);
       this.sortArchieveType = 'asc';
@@ -104,7 +104,8 @@ this.archiveHeadersProperties=["folder_title","id","start_date","disclosure_stat
     this.callAPI(this.rowsCount,"sort",url); 
   }
   public onSort(property, sortType) {
-  
+    
+    this.reverse=!this.reverse;
     if (this.sortedColumns.indexOf(property) === -1) {
       this.sortedColumns.push(property);
       this.sortType = 'asc';
@@ -139,6 +140,12 @@ callAPI(rowsCount,checkVal,sortUrl){
   }else{
     this.apiUrl=this.inputApiUrl+'&rows='+rowsCount;
   }
+  if(this.tabType=='archival'){
+    this.apiUrl = this.apiUrl+'&project_id_exact=' + this.projectid+'&apilang='+ this.locale;
+  }
+  if(this.tabType=='projects'){
+    this.apiUrl = this.apiUrl+'&proid=' + this.projectid+'&apilang='+ this.locale;
+  }
    
   this.rowsCount=rowsCount;
   
@@ -147,7 +154,7 @@ callAPI(rowsCount,checkVal,sortUrl){
   let excelJsonArrayElements= {};	 	
   
   this.http.get(this.apiUrl).subscribe((response:any)=> {	
-    debugger
+    
     let urlResponse = [];
   totalRecords=response.total;
   this.totalRecords = totalRecords;
@@ -217,8 +224,13 @@ downloadExcel(){
   let titleLinks=[];
   let titleLinksArchive=[];
   let excelJsonArrayElements= {};	 	
-  
-  this.http.get(this.inputApiUrl+'&rows=500').subscribe((response:any)=> {	
+  if(this.tabType=='archival'){
+    this.inputApiUrl = this.apiUrl+'&rows=500'+'&project_id_exact=' + this.projectid+'&apilang='+ this.locale;
+  }
+  if(this.tabType=='projects'){
+    this.inputApiUrl = this.apiUrl+'&rows=500'+'&proid=' + this.projectid+'&apilang='+ this.locale;
+  }
+  this.http.get(this.inputApiUrl).subscribe((response:any)=> {	
 
   if(response.total>'0'){  
     excelUrlResponse.push(response);
@@ -274,7 +286,9 @@ downloadExcel(){
   });
   
 }
-
+public onScrollToTop() {
+  window.scrollTo(0, 0);		
+}
 public removeURLParameter(url, parameter) {		
       var prefix = encodeURIComponent(parameter) + '=';
       var pars= url.split(/[&;]/g);
@@ -286,5 +300,42 @@ public removeURLParameter(url, parameter) {
       }
       return pars.join('&');					
   }
+
+  sortArr(colName:any){
+		this.urlResponse.sort((a,b)=>{
+		  a= a[colName].toLowerCase();
+		  b= b[colName].toLowerCase();
+		  return a.localeCompare(b) * this.sortDir;
+		});
+	  }
+
+	  onSortClick(event, index,col) {
+		let target = event.srcElement,
+		  classList = target.innerHTML;
+         if(classList!=""){
+		if (classList.indexOf('fa-chevron-up')>-1) {
+		  
+		  target.innerHTML = (target.tagName!='SPAN') ? 
+		  this.tableHeaders[index] + ' <span class="fa fa-chevron-down arrow_up" ></span>' : 
+		  '<span class="fa fa-chevron-down arrow_up" ></span>';
+		  this.sortDir=-1;
+		} else {
+		 target.innerHTML = (target.tagName!='SPAN') ? 
+		 this.tableHeaders[index] + ' <span class="fa fa-chevron-up arrow_up" ></span>' : 
+		 '<span class="fa fa-chevron-up arrow_up" ></span>';
+		  this.sortDir=1;
+		}
+	}else{
+		if (target.className.indexOf('fa-chevron-up')>-1) {
+			target.className="fa fa-chevron-down arrow_up";
+			this.sortDir=-1;
+		  } else {
+			target.className="fa fa-chevron-up arrow_up";
+			this.sortDir=1;
+		  }
+	}
+		
+		this.sortArr(col);
+	  }
 
 }
